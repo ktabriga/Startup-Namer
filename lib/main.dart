@@ -17,6 +17,7 @@ class MyApp extends StatelessWidget {
 class RamdomWordsState extends State<RamdomWords> {
   final _suggestions = <WordPair>[];
   final _biggerFont = const TextStyle(fontSize: 18.0);
+  final _saved = new Set<WordPair>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,11 +29,16 @@ class RamdomWordsState extends State<RamdomWords> {
   }
 
   Widget _buildRow(WordPair pair) {
+    final bool alreadySaved = _saved.contains(pair);
     return ListTile(
       title: Text(
         pair.asPascalCase,
         style: _biggerFont
-      )
+      ),
+      trailing: new Icon(
+        alreadySaved ? Icons.favorite : Icons.favorite_border,
+        color: alreadySaved ? Colors.red : null,
+        ),
     );
   }
   
